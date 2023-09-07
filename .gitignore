@@ -1,1 +1,5 @@
 Code/caltech101
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
