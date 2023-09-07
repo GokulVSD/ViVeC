@@ -1,4 +1,5 @@
-Code/caltech101
+**/caltech101
+**/.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
