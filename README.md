@@ -37,6 +37,7 @@ jupyter notebook
 Code/<task_no>.ipynb to open a notebook, and follow the instructions.
 
 
+
 Instructions for task 1:
 
     Implement a program which, given an image ID and one of the
@@ -55,7 +56,7 @@ the notebook.
 
 Please note that the system will not accept an image ID that corresponds to an
 image that does not have RGB channels, and will keep prompting you to provide
-a different image ID which does.
+a different image ID which does have RGB channels.
 
 
 
@@ -88,16 +89,16 @@ for accepting the image ID as well as the value of K. The outputs for this task
 are visualized within the notebook.
 
 If you provide an image ID without RGB channels, the system will print a
-warning, but will proceed by converting the image an RGB image. Please note
-that the task 2 did not store the vector models for non RGB images, so they
-will not show up in the results.
+warning, but will proceed by converting the image to an RGB image. Please note
+that task 2 did not store the vectors for non RGB images, so they will not
+show up in the results.
 
 
 
 Outputs:
 
 The set of 5 image IDs asked to be queried for K similar images has been
-stored within Outputs/ directory with relevant names as:
+stored within Outputs/ directory with relevant names like:
 
 id_2500.pdf
 
