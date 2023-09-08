@@ -6,6 +6,7 @@ import torch
 # This results in a feature descriptor of length 10x10x3x3 = 900.
 
 # Each cell tensor's shape is 3 x 10 x 30 (C x H x W)
+# https://en.wikipedia.org/wiki/Color_moments
 
 def get_color_vector(grid):
 
@@ -19,8 +20,6 @@ def get_color_vector(grid):
             cell_descriptor = []
 
             for channel in cell:
-
-                # https://en.wikipedia.org/wiki/Color_moments
 
                 channel_descriptor = []
 
@@ -40,8 +39,8 @@ def get_color_vector(grid):
                 # page as well as the lecture notes. The reason why I'm doing cube root
                 # this way is due to NaNs when taking cube roots of negatives in PyTorch
                 # tensors: https://github.com/pytorch/pytorch/issues/25766
-                cube_diffs = diffs.pow(3).mean()
-                skew = cube_diffs.sign() * cube_diffs.abs().pow(1/3)
+                cube_diffs_mean = diffs.pow(3).mean()
+                skew = cube_diffs_mean.sign() * cube_diffs_mean.abs().pow(1/3)
                 channel_descriptor.append(skew)
 
                 cell_descriptor.extend(channel_descriptor)

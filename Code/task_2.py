@@ -2,7 +2,7 @@
 # for all the images in the data set.
 
 # WARNING: Running this script will overwrite the contents of
-# <git_root>/Outputs/
+# <git_root>/Code/tensor_database/
 
 
 import os
@@ -23,11 +23,11 @@ dataset = Caltech101(root=os.path.abspath(os.path.join(os.path.dirname( __file__
 
 print(dataset, "\n")
 
-color_tensors = []
-hog_tensors = []
-avgpool_tensors = []
-layer3_tensors = []
-fc1000_tensors = []
+color_tensors = {}
+hog_tensors = {}
+avgpool_tensors = {}
+layer3_tensors = {}
+fc1000_tensors = {}
 
 for i in range(len(dataset)):
     print(f"Processing image {i+1}/{len(dataset)} \t ({int(100*(i+1)/len(dataset))} %)", end='\r')
@@ -45,7 +45,7 @@ for i in range(len(dataset)):
     grid = partition_to_grid(image300x100, num_rows=10, num_cols=10, hor_pixels=30, ver_pixels=10)
 
     # Compute color moments vector.
-    color_tensors.append(get_color_vector(grid))
+    color_tensors[i] = get_color_vector(grid)
 
     # Convert image to grayscale.
     gs_image = Grayscale()(image300x100)
@@ -54,7 +54,7 @@ for i in range(len(dataset)):
     gs_grid = partition_to_grid(gs_image, num_rows=10, num_cols=10, hor_pixels=30, ver_pixels=10)
 
     # Compute HOG moments vector.
-    hog_tensors.append(get_hog_vector(gs_grid))
+    hog_tensors[i] = get_hog_vector(gs_grid)
 
     # Resize original image to 244x244.
     image224x224 = Resize(size=(224, 224))(image)
@@ -65,36 +65,36 @@ for i in range(len(dataset)):
     # Extract features from ResNet-50.
     avgpool_vector, layer3_vector, fc1000_vector = get_resnet50_feature_vectors(img_tensor)
 
-    avgpool_tensors.append(avgpool_vector)
-    layer3_tensors.append(layer3_vector)
-    fc1000_tensors.append(fc1000_vector)
+    avgpool_tensors[i] = avgpool_vector
+    layer3_tensors[i] = layer3_vector
+    fc1000_tensors[i] = fc1000_vector
 
 
-outputs_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'Outputs'))
+db_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'tensor_database'))
 
-print("\n\nSaving color feature descriptors to '<git_root>/Outputs/color_tensors.pt'")
+print("\n\nSaving color feature descriptors to '<db_dir>/color_tensors.pt")
 
-torch.save(torch.stack(color_tensors), os.path.join(outputs_dir, 'color_tensors.pt'))
+torch.save(color_tensors, os.path.join(db_dir, 'color_tensors.pt'))
 
-print("\nSaving HOG feature descriptors to '<git_root>/Outputs/hog_tensors.pt'")
+print("\nSaving HOG feature descriptors to '<db_dir>/hog_tensors.pt'")
 
-torch.save(torch.stack(hog_tensors), os.path.join(outputs_dir, 'hog_tensors.pt\n'))
+torch.save(hog_tensors, os.path.join(db_dir, 'hog_tensors.pt'))
 
-print("\nSaving ResNet-50 AvgPool feature descriptors to '<git_root>/Outputs/avgpool_tensors.pt'")
+print("\nSaving ResNet-50 AvgPool feature descriptors to '<db_dir>/avgpool_tensors.pt'")
 
-torch.save(torch.stack(avgpool_tensors), os.path.join(outputs_dir, 'avgpool_tensors.pt\n'))
+torch.save(avgpool_tensors, os.path.join(db_dir, 'avgpool_tensors.pt'))
 
-print("\nSaving ResNet-50 Layer3 feature descriptors to '<git_root>/Outputs/layer3_tensors.pt'")
+print("\nSaving ResNet-50 Layer3 feature descriptors to '<db_dir>/layer3_tensors.pt'")
 
-torch.save(torch.stack(layer3_tensors), os.path.join(outputs_dir, 'layer3_tensors.pt\n'))
+torch.save(layer3_tensors, os.path.join(db_dir, 'layer3_tensors.pt'))
 
-print("\nSaving ResNet-50 Fc1000 feature descriptors to '<git_root>/Outputs/fc1000_tensors.pt'")
+print("\nSaving ResNet-50 Fc1000 feature descriptors to '<db_dir>/fc1000_tensors.pt'")
 
-torch.save(torch.stack(fc1000_tensors), os.path.join(outputs_dir, 'fc1000_tensors.pt\n'))
+torch.save(fc1000_tensors, os.path.join(db_dir, 'fc1000_tensors.pt'))
 
 print(
 """
-> Feature vectors for all images are stacked into one tensor per descriptor type.
-> This tensor is saved in binary form, the first dim index is the image ID.
+> Feature vectors for all images are stored in a tensor dictionary per descriptor type.
+> Stored in binary form, the key is the image ID, val is feature vector.
 """
 )

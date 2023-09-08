@@ -3,6 +3,7 @@ from torchvision.models import resnet50
 from torchvision.models.resnet import ResNet50_Weights
 
 # ResNet-50 Pretrained with default weights.
+# https://pytorch.org/vision/master/models/generated/torchvision.models.resnet50.html
 
 def get_resnet50_feature_vectors(img_tensor):
 

@@ -3,6 +3,8 @@ import torch
 
 # 9 bin (signed) magnitude-weighted gradient histograms.
 # Signed implies we consider 360 degrees, hence 9 bins => 40 degree bins.
+# https://en.wikipedia.org/wiki/Histogram_of_oriented_gradients
+# https://medium.com/@skillcate/histogram-of-oriented-gradients-hog-simplest-intuition-2392995f8010
 
 def get_hog_vector(gs_grid):
 

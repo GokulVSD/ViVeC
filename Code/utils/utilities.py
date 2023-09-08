@@ -1,3 +1,6 @@
+import os
+
+import torch
 from torchvision.transforms import transforms
 
 def partition_to_grid(img, num_rows, num_cols, hor_pixels, ver_pixels):
@@ -15,3 +18,25 @@ def partition_to_grid(img, num_rows, num_cols, hor_pixels, ver_pixels):
             )
 
     return grid
+
+
+
+def tensor_loader(tensor_name, root):
+
+    db_dir = os.path.join(root, 'tensor_database')
+
+    return torch.load(os.path.join(db_dir, tensor_name))
+
+
+
+def top_k_ranker(k, vector, tensor_dict, distance_fn):
+
+    distances = []
+
+    for img_id, tensor in tensor_dict.items():
+
+        distances.append((distance_fn(vector, tensor), img_id))
+
+    distances = sorted(distances)
+
+    return distances[:k]
