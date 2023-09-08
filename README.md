@@ -1,4 +1,4 @@
-# CSE 515 - Multimedia and Web Databses
+# CSE 515 - Multimedia and Web Databases
 
 Phase 1 - Image features, vector models, similarity/distance measures
 
@@ -54,9 +54,7 @@ Task 1 has been presented in the form of a Jupyter Notebook with input prompts
 for accepting the image ID. The outputs for this task are visualized within
 the notebook.
 
-Please note that the system will not accept an image ID that corresponds to an
-image that does not have RGB channels, and will keep prompting you to provide
-a different image ID which does have RGB channels.
+Please note that the system will attempt to convert any non RGB image to RGB.
 
 
 
@@ -71,8 +69,7 @@ python3 Code/task_2.py
 
 Warning: Running this script takes well over an hour.
 
-Please note that the system will ignore images which do not have RGB channels,
-and therefore they cannot show up during image retrieval.
+Please note that the system will attempt to convert any non RGB image to RGB.
 
 
 
@@ -88,10 +85,7 @@ Task 3 has been presented in the form of a Jupyter Notebook with input prompts
 for accepting the image ID as well as the value of K. The outputs for this task
 are visualized within the notebook.
 
-If you provide an image ID without RGB channels, the system will print a
-warning, but will proceed by converting the image to an RGB image. Please note
-that task 2 did not store the vectors for non RGB images, so they will not
-show up in the results.
+Please note that the system will attempt to convert any non RGB image to RGB.
 
 
 

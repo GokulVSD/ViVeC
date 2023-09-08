@@ -9,7 +9,7 @@ import os
 
 import torch
 from torchvision.datasets import Caltech101
-from torchvision.transforms import Resize, Grayscale, transforms
+from torchvision.transforms import Grayscale, transforms
 
 from feature_extractors.color_moments import get_color_vector
 from feature_extractors.HOG import get_hog_vector
@@ -34,12 +34,12 @@ for i in range(len(dataset)):
 
     image = dataset[i][0]
 
-    # Skip images which are not RGB
+    # Convert images that are not RGB to RGB.
     if image.mode != 'RGB':
-        continue
+        image = image.convert('RGB')
 
     # Resize image to 300x100.
-    image300x100 = Resize(size=(100, 300))(image)
+    image300x100 = image.resize((300, 100))
 
     # Partition image into 10x10 grid.
     grid = partition_to_grid(image300x100, num_rows=10, num_cols=10, hor_pixels=30, ver_pixels=10)
@@ -57,7 +57,7 @@ for i in range(len(dataset)):
     hog_tensors[i] = get_hog_vector(gs_grid)
 
     # Resize original image to 244x244.
-    image224x224 = Resize(size=(224, 224))(image)
+    image224x224 = image.resize((224, 224))
 
     # Convert to float tensor.
     img_tensor = transforms.Compose([transforms.ToTensor()])(image224x224)
