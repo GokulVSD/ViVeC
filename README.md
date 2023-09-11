@@ -1,6 +1,6 @@
 # CSE 515 - Multimedia and Web Databases
 
-Phase 1 - Image features, vector models, similarity/distance measures
+Phase 1 - Image features, vector models and similarity measures
 
 This is an individual project, the contents of this repository were
 coded solely by the author with relevant resources used linked via
@@ -10,7 +10,9 @@ comments within the code as well as the accompanying project report.
 Author Information:
 
 Name: Gokul Vasudeva
+
 Email: gvasude2@asu.edu
+
 Group No: 15
 
 
@@ -18,7 +20,7 @@ Setup:
 
 The system was developed using Python 3.11.5.
 
-1. It is recommended to setup a virtual environment:
+1. It is recommended to setup a virtual environment within the project folder:
 
 python3 -m venv .venv
 source venv/bin/activate
@@ -50,7 +52,7 @@ Instructions for task 1:
     4. ResNet-Layer3-1024
     5. ResNet-FC-1000
 
-Task 1 has been presented in the form of a Jupyter Notebook with input prompts
+Task 1 has been presented in the form of a Jupyter Notebook with an input prompt
 for accepting the image ID. The outputs for this task are visualized within
 the notebook.
 
