@@ -1,20 +1,12 @@
-# CSE 515 - Multimedia and Web Databases
+# ViVeC
+
+Efficient search and retrieval of relevant images from the Caltech-101  dataset using distance/similarty functions between feature descriptors generated using Color moments, Histograms of oriented Gradients (HoG) and ResNet layers.
 
 Phase 1 - Image features, vector models and similarity measures
 
 This is an individual project, the contents of this repository were
 coded solely by the author with relevant resources used linked via
 comments within the code as well as the accompanying project report.
-
-
-Author Information:
-
-Name: Gokul Vasudeva
-
-Email: gvasude2@asu.edu
-
-Group No: 15
-
 
 Setup:
 
@@ -103,9 +95,3 @@ was run, and the resulting output was saved as a PDF. The PDF neatly
 describes the rankings by each vector model by the chosen similarity
 measure, along with the values of the measures for the requested
 number of K.
-
-
-
-Report:
-
-The report is placed within Report/.
